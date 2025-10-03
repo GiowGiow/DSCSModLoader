@@ -7,61 +7,19 @@ namespace dscs
 {
     namespace digimon
     {
-        int64_t GetScan(int64_t digimonId)
+        int64_t GetScan(int64_t)
         {
-            auto context = getGameContext();
-
-            auto& digimonContext =
-                context->storyMode->mode == StoryModeEnum::HACKERS_MEMORY ? context->digimonHM : context->digimonCS;
-            auto& scanData = digimonContext->scanData;
-            auto found     = scanData.find(digimonId);
-
-            return found == scanData.end() ? 0 : found->second->scanrate;
+            return 0;
         }
 
-        void AddScan(int64_t digimonId, int64_t scan)
+        void AddScan(int64_t, int64_t)
         {
-            auto context = getGameContext();
-
-            auto& digimonContext =
-                context->storyMode->mode == StoryModeEnum::HACKERS_MEMORY ? context->digimonHM : context->digimonCS;
-            auto& scanData = digimonContext->scanData;
-            auto found     = scanData.find(digimonId);
-
-            if (found == scanData.end()) return;
-
-            int64_t newScan = found->second->scanrate + scan;
-
-            if (newScan > 200)
-                newScan = 200;
-            else if (newScan < 0)
-                newScan = 0;
-
-            found->second->scanrate = (uint16_t)newScan;
         }
 
-        void SetScan(int64_t digimonId, int64_t scan)
+        void SetScan(int64_t, int64_t)
         {
-            auto context = getGameContext();
-
-            auto& digimonContext =
-                context->storyMode->mode == StoryModeEnum::HACKERS_MEMORY ? context->digimonHM : context->digimonCS;
-            auto& scanData = digimonContext->scanData;
-            auto found     = scanData.find(digimonId);
-
-            if (found == scanData.end()) return;
-
-            uint64_t newScan = scan;
-
-            if (newScan > 200)
-                newScan = 200;
-            else if (newScan < 0)
-                newScan = 0;
-
-            found->second->scanrate = (uint16_t)newScan;
         }
     } // namespace digimon
-
     namespace modloader
     {
         void SetFlag(const SQChar* name, int32_t flag)
